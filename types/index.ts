@@ -23,6 +23,7 @@ export type ProductType = {
   price: string;
   count: number;
   color: string;
+  product_desc: string;
   size: string;
   images: string;
   image: string;

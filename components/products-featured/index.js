@@ -7,11 +7,12 @@ const ProductsFeatured = () => {
   const [data, seData] = useState([]);
 
   useEffect(() => {
-    fetch(`https://genesis360.com.ng/api/Products/Products.php`, {
+    fetch(`https://orangli.com/server/api/Products/Products.php`, {
 
   })
   .then(response => response.json())
   .then((data_) => {
+    console.log("Products")
     console.log(data_)
     seData(data_)
   })

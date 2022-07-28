@@ -11,7 +11,7 @@ const ShoppingCart = ({ thumb, name, id, color, size, count, price }) => {
     
   }, [])
   const removeFromCart = () => {
-    fetch(`https://genesis360.com.ng/api/Products/deleteCart.php?id=${id}`, {
+    fetch(`https://orangli.com/server/api/Products/deleteCart.php?id=${id}`, {
 
   })
   .then(response => response.json())

@@ -14,7 +14,7 @@ const ShoppingCart = () => {
     });
     var userid = localStorage.getItem("userid");
     var token = localStorage.getItem("token");
-    fetch(`https://genesis360.com.ng/api/User/getUser.php?userid=${userid}`, {
+    fetch(`https://orangli.com/server/api/User/getUser.php?userid=${userid}`, {
     headers: {
         "Authorization": `Bearer ${token}`
     }
@@ -34,7 +34,7 @@ const ShoppingCart = () => {
       }
     })
 
-    fetch(`https://genesis360.com.ng/api/Products/getCart.php?userid=${userid}`, {
+    fetch(`https://orangli.com/server/api/Products/getCart.php?userid=${userid}`, {
     headers: {
         "Authorization": `Bearer ${token}`
     }
@@ -109,7 +109,7 @@ const ShoppingCart = () => {
             <a href="#checkout" onClick={() => {
               var userid = localStorage.getItem("userid");
               var token = localStorage.getItem("token");
-              fetch(`https://genesis360.com.ng/api/User/submitOrder.php?userid=${userid}`, {
+              fetch(`https://orangli.com/server/api/User/submitOrder.php?userid=${userid}`, {
               headers: {
                   "Authorization": `Bearer ${token}`
               }

@@ -15,7 +15,7 @@ const IndexPage = () => {
   const [desc, setDesc] = useState(<></>);
   const [button, setButton] = useState(<button></button>);
   const onCloseModal = () => setOpen(false);
-  return (
+  return ( 
     <Layout>
       <PageIntro />
       <ToastContainer
@@ -92,7 +92,7 @@ const IndexPage = () => {
                     data.append("userid", `${loggedIn}`);
                     data.append("package", "3");
                     if(loggedIn){
-                      fetch(`https://genesis360.com.ng/api/Packages/OptIn.php`, {
+                      fetch(`https://orangli.com/server/api/Packages/OptIn.php`, {
                         headers: {
                           "Authorization": `Bearer ${token}`
                         },
@@ -199,7 +199,7 @@ const IndexPage = () => {
                     data.append("userid", `${loggedIn}`);
                     data.append("package", '4');
                     if(loggedIn){
-                      fetch(`https://genesis360.com.ng/api/Packages/OptIn.php`, {
+                      fetch(`https://orangli.com/server/api/Packages/OptIn.php`, {
                         headers: {
                           "Authorization": `Bearer ${token}`
                         },
@@ -306,7 +306,7 @@ const IndexPage = () => {
                     data.append("userid", `${loggedIn}`);
                     data.append("package", '5');
                     if(loggedIn){
-                      fetch(`https://genesis360.com.ng/api/Packages/OptIn.php`, {
+                      fetch(`https://orangli.com/server/api/Packages/OptIn.php`, {
                         headers: {
                           "Authorization": `Bearer ${token}`
                         },

@@ -37,7 +37,7 @@ function RegisterPage(){
               form.append("lastname", lastname);
               form.append("firstname", firstname);
               form.append("password", password);
-              fetch(`https://genesis360.com.ng/api/Auth/Register.php`, {
+              fetch(`https://orangli.com/server/api/Auth/Register.php`, {
                 method: "POST",
                 body: form
               })

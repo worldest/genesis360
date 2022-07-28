@@ -35,7 +35,7 @@ const LoginPage = () => {
               var data = new FormData();
               data.append("email", email);
               data.append("password", password);
-              fetch("https://genesis360.com.ng/api/Auth/Login.php", {
+              fetch("https://orangli.com/server/api/Auth/Login.php", {
                 method: "POST",
                 body: data
               })

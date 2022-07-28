@@ -20,7 +20,7 @@ type ProductPageType = {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const pid = query.pid;
-  const res = await fetch(`https://genesis360.com.ng/api/Products/ProductById.php?id=${pid}`);
+  const res = await fetch(`https://orangli.com/server/api/Products/ProductById.php?id=${pid}`);
   const product = await res.json();
 
   return {

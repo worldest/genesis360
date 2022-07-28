@@ -17,7 +17,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
   const router = useRouter();
   const { cartItems } = useSelector((state: RootState)  => state.cart);
   const arrayPaths = ['/'];  
-
+  const [token, setToken] = useState(null);
   const [onTop, setOnTop] = useState(( !arrayPaths.includes(router.pathname) || isErrorPage ) ? false : true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -45,7 +45,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
  
         var userid = localStorage.getItem("userid");
         var token = localStorage.getItem("token");
-        fetch(`https://genesis360.com.ng/api/User/getUser.php?userid=${userid}`, {
+        fetch(`https://orangli.com/server/api/User/getUser.php?userid=${userid}`, {
         headers: {
             "Authorization": `Bearer ${token}`
         }
@@ -54,19 +54,19 @@ const Header = ({ isErrorPage }: HeaderType) => {
         .then((res) => {
         console.log(res);
         if(res.code == 200){
-            
+            setToken(token)
             setFirstname(res.user.first_name);
           }else if(res.code == 401){
             toast.error("An error occured, please login again", {
               position: toast.POSITION.TOP_RIGHT
             });
             setTimeout(() => {
-              window.location.href = "/login"
+              // window.location.href = "/login"
             }, 2000)
           }
         })
 
-        fetch(`https://genesis360.com.ng/api/User/getKYC.php?userid=${userid}`, {
+        fetch(`https://orangli.com/server/api/User/getKYC.php?userid=${userid}`, {
         headers: {
             "Authorization": `Bearer ${token}`
         }
@@ -80,7 +80,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
               position: toast.POSITION.TOP_RIGHT
             });
             setTimeout(() => {
-              window.location.href = "/login"
+              // window.location.href = "/login"
             }, 2000)
           }
         })
@@ -101,7 +101,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
     <header className={`site-header ${!onTop ? 'site-header--fixed' : ''}`}>
       <div className="container">
         <Link href="/">
-          <a><h1 className="site-logo"><Logo />Genesis-360</h1></a>
+          <img src="/images/logos/logo.png" width="120px" height="120px" />
         </Link>
         <nav ref={navRef} className={`site-nav ${menuOpen ? 'site-nav--open' : ''}`}>
           <Link href="/products">
@@ -128,16 +128,10 @@ const Header = ({ isErrorPage }: HeaderType) => {
               }
             </button>
           </Link>
-          {
-            firstname !== "" ?
-              <Link href="/login">
-              <button className="site-header__btn-avatar"><i className="icon-avatar"></i></button>
-            </Link>
-            :
-            <Link href="/profile">
+          <Link href="/profile">
             <button className="site-header__btn-avatar"><i className="icon-avatar"></i> {firstname}</button>
           </Link>
-          }
+          
           <button 
             onClick={() => setMenuOpen(true)} 
             className="site-header__btn-menu">

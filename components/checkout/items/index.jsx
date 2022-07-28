@@ -12,7 +12,7 @@ const CheckoutItems = () => {
     });
     var userid = localStorage.getItem("userid");
     var token = localStorage.getItem("token");
-    fetch(`https://genesis360.com.ng/api/User/getUser.php?userid=${userid}`, {
+    fetch(`https://orangli.com/server/api/User/getUser.php?userid=${userid}`, {
     headers: {
         "Authorization": `Bearer ${token}`
     }
@@ -32,7 +32,7 @@ const CheckoutItems = () => {
       }
     })
 
-    fetch(`https://genesis360.com.ng/api/Products/getOrders.php?userid=${userid}`, {
+    fetch(`https://orangli.com/server/api/Products/getOrders.php?userid=${userid}`, {
     headers: {
         "Authorization": `Bearer ${token}`
     }
@@ -41,6 +41,8 @@ const CheckoutItems = () => {
     .then((res) => {
     console.log(res);
     if(res.code == 200){
+        console.log("Orders");
+        console.log(res)
         setCartItems(res.cart)
         setPriceTotal(res.total)
       }else if(res.code == 401){
@@ -62,13 +64,13 @@ const CheckoutItems = () => {
         <li className="checkout-item">
           <div className="checkout-item__content">
             <div className="checkout-item__img">
-              <img src={item.product.image} />
+              {/*<img src={item.product.image} />*/}
             </div>
 
             <div className="checkout-item__data">
-              <h3>{item.product.product_name}</h3>
-              <span>#{item.cart_info.id}</span>
-              <span>&nbsp;&nbsp;&nbsp;{item.cart_info.status === 1 ? "Completed" : "Pending"}</span>
+              {/* <h3>{item.product.product_name}</h3> */}
+              {/* <span>#{item.cart_info.id}</span> */}
+              {/* <span>&nbsp;&nbsp;&nbsp;{item.cart_info.status === 1 ? "Completed" : "Pending"}</span> */}
             </div>
           </div>
           <h3>NGN {item.cart_info.price}</h3><br />

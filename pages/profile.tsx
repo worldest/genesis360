@@ -14,7 +14,7 @@ const Profile = () => {
     useEffect(() => {
         var userid = localStorage.getItem("userid");
         var token = localStorage.getItem("token");
-        fetch(`https://genesis360.com.ng/api/User/getUser.php?userid=${userid}`, {
+        fetch(`https://orangli.com/server/api/User/getUser.php?userid=${userid}`, {
         headers: {
             "Authorization": `Bearer ${token}`
         }
@@ -40,7 +40,7 @@ const Profile = () => {
           }
         })
 
-        fetch(`https://genesis360.com.ng/api/User/getKYC.php?userid=${userid}`, {
+        fetch(`https://orangli.com/server/api/User/getKYC.php?userid=${userid}`, {
         headers: {
             "Authorization": `Bearer ${token}`
         }
@@ -63,7 +63,7 @@ const Profile = () => {
           }
         })
 
-        fetch(`https://genesis360.com.ng/api/Products/getSubscription.php?userid=${userid}`, {
+        fetch(`https://orangli.com/server/api/Products/getSubscription.php?userid=${userid}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -208,10 +208,10 @@ const Profile = () => {
           
           <div className="cart-actions cart-actions--checkout">
             <a href="#save" className="cart__btn-back btn--border btn btn--rounded"><i className="icon-user"></i> Save Information</a>
-            <div className="cart-actions__items-wrapper">
+            {/* <div className="cart-actions__items-wrapper">
               <button type="button" className="btn btn--rounded btn--border">Continue shopping</button>
               <button type="button" className="btn btn--rounded btn--yellow">Proceed to payment</button>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

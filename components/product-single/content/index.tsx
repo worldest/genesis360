@@ -48,7 +48,7 @@ const Content = ({ product }: ProductContent) => {
     form.append("userid", `${userid}`);
     form.append("price", `${product.price}`);
     form.append("qty", `${count}`);
-    fetch(`https://genesis360.com.ng/api/Products/AddToCart.php`, {
+    fetch(`https://orangli.com/server/api/Products/AddToCart.php`, {
       headers: {
         "Authorization": `Bearer ${token}`
       },

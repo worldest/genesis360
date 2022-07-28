@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 const ProductsContent = () => {
   const [datas, setData] = useState([])
   useEffect(() => {
-    fetch(`https://genesis360.com.ng/api/Products/Products.php`, {
+    fetch(`https://orangli.com/server/api/Products/Products.php`, {
 
   })
   .then(response => response.json())
@@ -21,13 +21,13 @@ const ProductsContent = () => {
         <section className="products-list">
           {datas.map((item)  => (
             <ProductItem 
-              id={item.id} 
-              name={item.product_name}
-              price={item.price}
-              color={item.color}
-              currentPrice={item.price}
-              key={item.id}
-              images={item.image} 
+              id={item.product.id} 
+              name={item.product.product_name}
+              price={item.product.price}
+              color={item.product.color}
+              currentPrice={item.product.price}
+              key={item.product.id}
+              images={item.product.image} 
             />
           ))}
         </section>

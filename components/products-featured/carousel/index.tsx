@@ -33,16 +33,16 @@ const ProductsCarousel = ({ products }) => {
       slidesPerView={slidesPerView} 
       className="swiper-wrapper">
         {products.map(item => ( 
-          <SwiperSlide key={item.id}>
+          <SwiperSlide key={item.product.id}>
             <ProductItem 
-              id={item.id} 
-              name={item.product_name}
-              price={item.price}
-              color={item.color}
-              discount={item.discount}
-              currentPrice={item.price}
-              key={item.id}
-              images={item.image} 
+              id={item.product.id} 
+              name={item.product_product_name}
+              price={item.product.price}
+              color={item.product.color}
+              discount={item.product.discount}
+              currentPrice={item.product.price}
+              key={item.product.id}
+              images={item.product.image} 
             />
           </SwiperSlide>
         ))}
