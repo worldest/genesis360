@@ -43,10 +43,12 @@ const KYC = () => {
       console.log("next");
         
       reader.onload = function () {
-          var dataResult = reader.result.replace("data:", "")
-          .replace(/^.+,/, "")
+          var dataResul = reader.result;
+          var dataResu = dataResul.toString();
+          var dataResult = dataResu.replace("data:", "")
+          .replace(/^.+,/, "");
           setBase64String(dataResult);
-    
+          console.log(dataResult)
           var imageBase64Stringsep = base64String;
     
           // alert(imageBase64Stringsep);
@@ -241,7 +243,7 @@ const KYC = () => {
             <h3 className="cart__title">Complete KYC</h3>
             <a onClick={() => {
                 // window.location.href = "https://wa.me/2349135403118"
-              }} type="button" className="btn btn--rounded btn--border">{status === 0 ? "Pending" : "Approved"}</a>
+              }} type="button" className="btn btn--rounded btn--border">{status == 0 ? "Pending" : "Approved"}</a>
           </div>
 
           <div className="checkout-content">
@@ -371,7 +373,7 @@ const KYC = () => {
                         
                         <input onChange={(e) => {
                             return imageUploaded();
-                          }} id="uploadFile" value="" className="form__input form__input--sm" type="file" accept='image/*' placeholder="" required />
+                          }} id="uploadFile" className="form__input form__input--sm" type="file" accept='image/*' placeholder="" required />
                           
                   
                   </div>

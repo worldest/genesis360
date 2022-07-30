@@ -4,7 +4,7 @@ import CheckoutStatus from '../components/checkout-status';
 import CheckoutItems from '../components/checkout/items';
 import { RootState } from 'store';
 import { useEffect, useState } from 'react';
-
+import PaystackButton from 'react-paystack';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 const KYC = () => {
