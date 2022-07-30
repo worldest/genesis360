@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import CheckoutStatus from '../components/checkout-status';
 import CheckoutItems from '../components/checkout/items';
 import { RootState } from 'store';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { usePaystackPayment } from 'react-paystack';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -17,10 +17,14 @@ const KYC = () => {
     const [num, setNum] = useState("");
     const [spouseName, setSpouseName] = useState("");
     const [bvn, setBvn] = useState("");
+    const [scriptLoaded, setScriptLoaded] = useState(false);
     const [dob, setDOB] = useState("");
+    const [base64String, setBase64String] = useState("");
+    const [userID, setUserID] = useState("");
     const [marital, setMarital] = useState("");
     const [proof, setProof] = useState("");
     const [street, setStreet] = useState("");
+    const [userToken, setUserToken] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [disabled_, setDisabled] = useState(false);
@@ -31,13 +35,63 @@ const KYC = () => {
       amount: 42000,
       publicKey: 'pk_test_4d1023fb0121454c0cf7f3720fc71d1a4503e4f3',
     };
+    function imageUploaded() {
+      var getFile = document.getElementById("uploadFile");
+      var file = getFile['files'][0];
+    
+      var reader = new FileReader();
+      console.log("next");
+        
+      reader.onload = function () {
+          var dataResult = reader.result.replace("data:", "")
+          .replace(/^.+,/, "")
+          setBase64String(dataResult);
+    
+          var imageBase64Stringsep = base64String;
+    
+          // alert(imageBase64Stringsep);
+          console.log(base64String);
+          var data = new FormData();
+          data.append("file", base64String);
+          data.append("userid", userID);
+          fetch(`https://orangli.com/server/api/User/setProof.php`, {
+            headers: {
+                "Authorization": `Bearer ${userToken}`
+            },
+            method: "POST",
+            body: data
+            })
+            .then(response => response.json())
+            .then((res) => {
+            console.log(res);
+            if(res.code == 200){
+                toast.info(res.message, {
+                position: toast.POSITION.TOP_RIGHT
+                });
+                
+            }else if(res.code == 401){
+                toast.error("An error occured, please login again", {
+                position: toast.POSITION.TOP_RIGHT
+                });
+                setTimeout(() => {
+                window.location.href = "/login"
+                }, 2000)
+            }
+            })
+      }
+      reader.readAsDataURL(file);
+  }
+    
+  function displayString() {
+      console.log("Base64String about to be printed");
+      alert(base64String);
+  }
     const onSuccess = (reference) => {
       // Implementation for whatever you want to do with reference and after success call.
       console.log(reference);
       var userid = localStorage.getItem("userid");
       var token = localStorage.getItem("token");
       var data = new FormData();
-      
       data.append("num", num)
       data.append("income", income)
       data.append("gender", gender)
@@ -65,7 +119,8 @@ const KYC = () => {
               toast.info(res.message, {
               position: toast.POSITION.TOP_RIGHT
               });
-              
+              alert("You will now be redirected to provide your financial details for further analysis");
+              openWidget()
           }else if(res.code == 401){
               toast.error("An error occured, please login again", {
               position: toast.POSITION.TOP_RIGHT
@@ -96,6 +151,8 @@ const KYC = () => {
     useEffect(() => {
         var userid = localStorage.getItem("userid");
         var token = localStorage.getItem("token");
+        setUserToken(token);
+        setUserID(userid);
         fetch(`https://orangli.com/server/api/User/getUser.php?userid=${userid}`, {
         headers: {
             "Authorization": `Bearer ${token}`
@@ -148,8 +205,22 @@ const KYC = () => {
             }, 2000)
           }
         })
-    }, [])
 
+        
+    }, [])
+    const openWidget = useCallback(async () => {
+      const Service = (await import("@hadada.co/serve.js")).default;
+      
+      const hadadaInstance = new Service({
+        key: "09f-70c9f238b97f",
+        onClose: () => console.log("Widget closed"),
+        onLoad: () => setScriptLoaded(true),
+        onSuccess: ({ code }) => console.log(`successfully: ${code}`),
+      });
+  
+      hadadaInstance.setup();
+      hadadaInstance.open();
+    }, []);
   return (
     <Layout>
         <ToastContainer
@@ -299,8 +370,8 @@ const KYC = () => {
                    <div className="form__col">
                         
                         <input onChange={(e) => {
-                            setNum(e.target.value)
-                          }} id="city" value="" className="form__input form__input--sm" type="file" placeholder="" required />
+                            return imageUploaded();
+                          }} id="uploadFile" value="" className="form__input form__input--sm" type="file" accept='image/*' placeholder="" required />
                           
                   
                   </div>
